@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WFA</string><string name="button_name_execute">execute</string><string name="username">username</string><string name="password">password</string>
+</resources>
