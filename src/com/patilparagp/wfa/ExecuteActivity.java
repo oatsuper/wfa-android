@@ -1,8 +1,8 @@
-package com.patilparagp;
+package com.patilparagp.wfa;
 
 import android.app.Activity;
 import android.os.Bundle;
-import com.patilparagp.R;
+import com.patilparagp.wfa.R;
 
 public class ExecuteActivity extends Activity {
 

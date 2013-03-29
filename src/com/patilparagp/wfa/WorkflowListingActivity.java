@@ -1,4 +1,4 @@
-package com.patilparagp;
+package com.patilparagp.wfa;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.*;
-import com.patilparagp.R;
+import com.patilparagp.wfa.R;
 
 public class WorkflowListingActivity extends Activity {
 
@@ -51,13 +51,6 @@ public class WorkflowListingActivity extends Activity {
             }
         });
 
-    }
-    public ListView getWorkflowListView() {
-        return workflowListView;
-    }
-
-    public void setWorkflowListView(ListView workflowListView) {
-        this.workflowListView = workflowListView;
     }
 
 }
