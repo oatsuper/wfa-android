@@ -1,4 +1,4 @@
-package com.patilparagp;
+package com.patilparagp.wfa;
 
 
 import android.app.ProgressDialog;
@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.patilparagp.wfa.R;
 
 
 import java.util.ArrayList;
