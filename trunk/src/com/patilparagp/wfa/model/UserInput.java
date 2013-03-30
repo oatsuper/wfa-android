@@ -1,9 +1,10 @@
 package com.patilparagp.wfa.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserInput {
+public class UserInput implements Serializable {
     private String name;
     private String type;
     private String description;
