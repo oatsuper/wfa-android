@@ -1,9 +1,11 @@
 package com.patilparagp.wfa.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Workflow {
+public class Workflow implements Serializable {
+
 
     private String uuid;
     private String name;
@@ -61,6 +63,7 @@ public class Workflow {
         this.description = description;
     }
 
+
     public String getDescription() {
         return description;
     }
@@ -71,6 +74,22 @@ public class Workflow {
 
     public void setUserInputs(List<UserInput> userInputs) {
         this.userInputs = userInputs;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

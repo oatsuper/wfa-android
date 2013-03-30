@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.patilparagp.wfa.model.ServerCredentials;
 import com.patilparagp.wfa.model.UserInput;
 import com.patilparagp.wfa.model.Workflow;
+import com.patilparagp.wfa.store.WorkflowStore;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -67,15 +68,23 @@ public class WorkflowListingActivity extends Activity {
 
 
         //startService(intent);
-        WorkflowFetcherTask workflowFetcherTask = new WorkflowFetcherTask();
-        workflowFetcherTask.execute(new ServerCredentials[]{new ServerCredentials(server, userName, password)});
+        if (WorkflowStore.getWorkflowStore(getApplicationContext()).load()) {
+            System.out.println(" &&&&&&&  workflows loaded from file");
+            workflowListView.setAdapter(new ArrayAdapter<Workflow>(getApplicationContext(), R.layout.listrow, WorkflowStore.getWorkflowStore(getApplicationContext()).getWorkflows()));
+            dialog.dismiss();
+        } else {
+            System.out.println(" &&&&&&&  loading workflows from Server");
+            WorkflowFetcherTask workflowFetcherTask = new WorkflowFetcherTask();
+            workflowFetcherTask.execute(new ServerCredentials[]{new ServerCredentials(server, userName, password)});
+        }
 
 
         workflowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                startActivity(new Intent(getApplicationContext(), ExecuteActivity.class));
+                Intent executeIntent = new Intent(getApplicationContext(), ExecuteActivity.class);
+                executeIntent.putExtra("position", position);
+                startActivity(executeIntent);
 
             }
         });
@@ -137,7 +146,7 @@ public class WorkflowListingActivity extends Activity {
             String line = null;
             try {
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -167,7 +176,8 @@ public class WorkflowListingActivity extends Activity {
         @Override
         protected void onPostExecute(List<Workflow> workflows) {
             workflowListView.setAdapter(new ArrayAdapter<Workflow>(getApplicationContext(), R.layout.listrow, workflows));
-            super.onPostExecute(workflows);
+            WorkflowStore.getWorkflowStore(getApplicationContext()).save(workflows);
+            System.out.println(" &&&&&&&  workflows saved");
             dialog.dismiss();
         }
 
