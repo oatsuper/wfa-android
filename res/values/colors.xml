@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><color name="text_color">#010101</color><color name="wfa_background">#ff4685ff</color></resources>
+<resources>
+    <color name="text_color">#010101</color>
+    <color name="wfa_background">#ff4685ff</color>
+    <color name="list_selected">#2b3d70</color>
+</resources>
