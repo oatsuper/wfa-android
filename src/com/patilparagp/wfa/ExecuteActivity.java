@@ -36,45 +36,63 @@ public class ExecuteActivity extends Activity {
         int position = getIntent().getIntExtra("position", -1);
         setContentView(getLayoutInflater().inflate(R.layout.execute, null));
         TableLayout tableLayout = (TableLayout) findViewById(R.id.userInputTable);
+
         final Workflow workflow = WorkflowStore.getWorkflowStore(getApplicationContext()).getByIndex(position);
 
         TableRow firstRow = new TableRow(getApplicationContext());
         TextView textView = new TextView(getApplicationContext());
-        textView.setText("Workflow inputs");
-        firstRow.addView(textView);
+        TableRow.LayoutParams params = new TableRow.LayoutParams();
+        params.span = 2;
+
+        textView.setText(workflow.getName());
+        firstRow.addView(textView, params);
         tableLayout.addView(firstRow);
 
         for (final UserInput userInput : workflow.getUserInputs()) {
             TableRow row = new TableRow(getApplicationContext());
             TextView nameView = new TextView(getApplicationContext());
+
+
+            nameView.setTextColor(R.color.text_color);
             if (userInput.isMandatory()) {
                 nameView.setText("* " + userInput.getName());
             } else {
                 nameView.setText(userInput.getName());
             }
-
             row.addView(nameView);
             if (!userInput.getValues().isEmpty()) {
-                ListView listView = new ListView(getApplicationContext());
+                final ListView listView = new ListView(getApplicationContext());
+
                 listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-                listView.setSelector(android.R.color.darker_gray);
+
                 listView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.listrow, userInput.getValues()));
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        view.setBackgroundColor(R.color.list_selected);
-                        EditText editText = new EditText(getApplicationContext());
+                        for (int i = 0; i < listView.getChildCount(); ++i) {
+                            TextView textView = (TextView) listView.getChildAt(i);
+                            textView.setBackgroundResource(R.color.list_background);
+                        }
+                        view.setBackgroundResource(R.color.list_selected);
+                        EditText editText = new EditText(context);
                         editText.setText(userInput.getValues().get(position));
                         userInput.setView(editText);
+                        System.out.println(editText.getText());
                     }
                 });
 
                 row.addView(listView);
+            } else if ("Boolean".equals(userInput.getType())) {
+                CheckBox checkBox = new CheckBox(getApplicationContext());
+                if ("true".equals(userInput.getDefaultValue())) {
+                    checkBox.setChecked(true);
+                }
+                userInput.setView(checkBox);
+                row.addView(checkBox);
             } else {
                 EditText inputView = new EditText(getApplicationContext());
                 inputView.setText(userInput.getDefaultValue());
-                inputView.setMinimumWidth(15);
                 userInput.setView(inputView);
                 row.addView(inputView);
             }
@@ -82,7 +100,7 @@ public class ExecuteActivity extends Activity {
         }
         TableRow finalRow = new TableRow(getApplicationContext());
         Button button = new Button(getApplicationContext());
-        finalRow.addView(button);
+        finalRow.addView(button, params);
         button.setText("execute");
         button.setOnClickListener(new View.OnClickListener() {
             @Override

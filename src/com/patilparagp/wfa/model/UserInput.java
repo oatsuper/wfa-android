@@ -28,25 +28,6 @@ public class UserInput implements Serializable {
         this.defaultValue = defaultValue;
     }
 
-    public UserInput() {
-
-    }
-
-    public UserInput withName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public UserInput ofType(String type) {
-        this.type = type;
-        return this;
-    }
-
-    public UserInput withValues(List<String> values) {
-        this.values = values;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,20 +48,8 @@ public class UserInput implements Serializable {
         return result;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public void setValues(List<String> values) {
         this.values = values;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public List<String> getValues() {
@@ -91,17 +60,11 @@ public class UserInput implements Serializable {
         return mandatory;
     }
 
-    public void setMandatory(boolean mandatory) {
-        this.mandatory = mandatory;
-    }
 
     public String getDefaultValue() {
         return defaultValue;
     }
 
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
-    }
 
     public String getName() {
         return name;
