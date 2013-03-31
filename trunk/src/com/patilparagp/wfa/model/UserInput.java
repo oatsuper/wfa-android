@@ -1,14 +1,19 @@
 package com.patilparagp.wfa.model;
 
+import android.view.View;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserInput implements Serializable {
+
     private String name;
     private String type;
     private String description;
 
+
+    private transient View view;
 
     private boolean mandatory;
     private String defaultValue;
@@ -96,6 +101,26 @@ public class UserInput implements Serializable {
 
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 
     @Override
