@@ -11,7 +11,7 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@id/userInputTable"
+        android:id="@+id/userInputTable"
         android:background="@color/wfa_background"
         android:focusable="false"
         >
