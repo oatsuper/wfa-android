@@ -1,6 +1,8 @@
 package com.patilparagp.wfa.xml;
 
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
 import com.patilparagp.wfa.model.UserInput;
 
 import java.util.List;
@@ -23,7 +25,14 @@ public class WorkflowInput {
         for (UserInput userInput : userInputAndValues) {
             sb.append("<userInputEntry ");
             sb.append("key=\"").append(userInput.getName()).append("\"").append(" ");
-            sb.append("value=\"").append(((EditText) userInput.getView()).getText()).append("\"");
+            if ("Query".equals(userInput.getType()) || "Enum".equals(userInput.getType())) {
+                sb.append("value=\"").append(((EditText)userInput.getView()).getText()).append("\"");
+            } else if ("Boolean".equals(userInput.getType())) {
+                sb.append("value=\"").append(((CheckBox) userInput.getView()).isChecked() == true ? "true" : "false").append("\"");
+            } else {
+                sb.append("value=\"").append(((EditText)userInput.getView()).getText()).append("\"");
+            }
+
             sb.append("/>");
         }
         sb.append("</userInputValues>");
