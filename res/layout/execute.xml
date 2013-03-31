@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<TableLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/userInputTable"
-    android:background="#2b3d70">
-</TableLayout>
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView"
+    android:layout_column="0"
+    android:fillViewport="true">
+
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/userInputTable"
+        android:background="@color/wfa_background"
+        android:focusable="false"
+        >
+    </TableLayout>
+
+</ScrollView>
+
+
