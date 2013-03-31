@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import com.patilparagp.wfa.model.ServerCredentials;
 import com.patilparagp.wfa.model.UserInput;
 import com.patilparagp.wfa.model.Workflow;
@@ -70,7 +71,6 @@ public class WorkflowListingActivity extends Activity {
         intent.putExtra("password", password);
 
 
-        //startService(intent);
         if (WorkflowStore.getWorkflowStore(getApplicationContext()).load()) {
             System.out.println(" &&&&&&&  workflows loaded from file");
             workflowListView.setAdapter(new ArrayAdapter<Workflow>(getApplicationContext(), R.layout.listrow, WorkflowStore.getWorkflowStore(getApplicationContext()).getWorkflows()));
@@ -85,6 +85,12 @@ public class WorkflowListingActivity extends Activity {
         workflowListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for (int i = 0; i < workflowListView.getChildCount(); ++i) {
+                    TextView textView = (TextView) workflowListView.getChildAt(i);
+                    textView.setBackgroundResource(R.color.list_background);
+                }
+
+                view.setBackgroundResource(R.color.list_selected);
                 Intent executeIntent = new Intent(getApplicationContext(), ExecuteActivity.class);
                 executeIntent.putExtra("position", position);
                 startActivity(executeIntent);
@@ -190,7 +196,7 @@ public class WorkflowListingActivity extends Activity {
                         String inputDefaultValue = getNodeByName(inputNode.getChildNodes(), "defaultValue") != null ?
                                 getNodeByName(inputNode.getChildNodes(), "defaultValue").getTextContent() :
                                 null;
-                        boolean inputMandatory = Boolean.getBoolean(getNodeByName(inputNode.getChildNodes(), "mandatory").getTextContent());
+                        boolean inputMandatory = Boolean.parseBoolean(getNodeByName(inputNode.getChildNodes(), "mandatory").getTextContent());
                         Node valuesNode = getNodeByName(inputNode.getChildNodes(), "allowedValues");
                         List<String> allowedValues = new ArrayList<String>();
                         if (valuesNode != null) {
